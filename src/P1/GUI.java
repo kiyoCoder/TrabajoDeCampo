@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
 import javax.swing.JTextField;
@@ -15,23 +16,30 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.SystemColor;
 import javax.swing.JTable;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
-public class GUI extends JFrame {
+public class GUI extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	TitledBorder bordeArticulo = new TitledBorder("Articulo");
+	TitledBorder bordeArticulo = new TitledBorder("Artículo");
 	private JTextField txtCodigo;
 	private JTextField txtStock;
 	private JTextField txtPUnitario;
 	private JTextField txtCantidad;
-	private JTable table;
 	private JTextField txtRUC;
 	private JTextField txtRazonSocial;
 	private JTextField txtDomicilio;
 	private JTextField txtSubTotal;
 	private JTextField txtIGV;
 	private JTextField txtTotal;
+	private JButton btnAgregar;
+	private JTextField txtDesc;
+	private JScrollPane scrollPane;
+	private JTable table;
 	/**
 	 * Launch the application.
 	 */
@@ -58,6 +66,7 @@ public class GUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 		JLabel lblNewLabel = new JLabel("Facturación");
 		lblNewLabel.setFont(new Font("MS PGothic", Font.PLAIN, 24));
 		lblNewLabel.setBounds(62, 0, 143, 39);
@@ -105,14 +114,9 @@ public class GUI extends JFrame {
 		panel.add(lblCantidad);
 		
 		txtCodigo = new JTextField();
-		txtCodigo.setEditable(false);
 		txtCodigo.setBounds(140, 22, 147, 20);
 		panel.add(txtCodigo);
 		txtCodigo.setColumns(10);
-		
-		JComboBox comboBoxDescripcion = new JComboBox();
-		comboBoxDescripcion.setBounds(140, 48, 147, 22);
-		panel.add(comboBoxDescripcion);
 		
 		JLabel lblStock = new JLabel("Stock:");
 		lblStock.setFont(new Font("SansSerif", Font.BOLD, 15));
@@ -120,59 +124,71 @@ public class GUI extends JFrame {
 		panel.add(lblStock);
 		
 		txtStock = new JTextField();
-		txtStock.setEditable(false);
 		txtStock.setColumns(10);
 		txtStock.setBounds(306, 49, 92, 20);
 		panel.add(txtStock);
 		
 		txtPUnitario = new JTextField();
-		txtPUnitario.setEditable(false);
 		txtPUnitario.setColumns(10);
 		txtPUnitario.setBounds(140, 79, 147, 20);
 		panel.add(txtPUnitario);
 		
 		txtCantidad = new JTextField();
-		txtCantidad.setEditable(false);
 		txtCantidad.setColumns(10);
 		txtCantidad.setBounds(140, 110, 147, 20);
 		panel.add(txtCantidad);
 		
-		JButton btnAgregar = new JButton("Agregar");
+		btnAgregar = new JButton("Agregar");
+		btnAgregar.addActionListener(this);
 		btnAgregar.setFont(new Font("SansSerif", Font.BOLD, 15));
 		btnAgregar.setBackground(SystemColor.activeCaption);
-		btnAgregar.setBounds(308, 99, 89, 23);
+		btnAgregar.setBounds(308, 99, 102, 22);
 		panel.add(btnAgregar);
+		
+		txtDesc = new JTextField();
+		txtDesc.setColumns(10);
+		txtDesc.setBounds(140, 50, 147, 20);
+		panel.add(txtDesc);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, SystemColor.activeCaption));
-		panel_1.setBounds(10, 248, 420, 179);
+		panel_1.setBounds(10, 272, 420, 155);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblCantidad_1 = new JLabel("Cantidad");
-		lblCantidad_1.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblCantidad_1.setBounds(10, 0, 102, 39);
-		panel_1.add(lblCantidad_1);
-		
-		JLabel lblCantidad_1_1 = new JLabel("Descripción");
-		lblCantidad_1_1.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblCantidad_1_1.setBounds(102, 0, 102, 39);
-		panel_1.add(lblCantidad_1_1);
-		
-		JLabel lblCantidad_1_1_1 = new JLabel("P. Unitario");
-		lblCantidad_1_1_1.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblCantidad_1_1_1.setBounds(214, 0, 102, 39);
-		panel_1.add(lblCantidad_1_1_1);
-		
-		JLabel lblCantidad_1_1_1_1 = new JLabel("P. Total");
-		lblCantidad_1_1_1_1.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblCantidad_1_1_1_1.setBounds(315, 0, 102, 39);
-		panel_1.add(lblCantidad_1_1_1_1);
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, -21, 424, 169);
+		panel_1.add(scrollPane);
+		scrollPane.setEnabled(false);
 		
 		table = new JTable();
-		table.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, SystemColor.activeCaption));
-		table.setBounds(10, 38, 389, 130);
-		panel_1.add(table);
+		table.setFont(new Font("Tahoma", Font.BOLD, 10));
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Cantidad", "Descripci\u00F3n", "P. Unitario", "P. Total"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table.getColumnModel().getColumn(0).setResizable(false);
+		table.getColumnModel().getColumn(0).setPreferredWidth(52);
+		table.getColumnModel().getColumn(1).setResizable(false);
+		table.getColumnModel().getColumn(1).setPreferredWidth(106);
+		table.getColumnModel().getColumn(2).setResizable(false);
+		table.getColumnModel().getColumn(2).setPreferredWidth(59);
+		table.getColumnModel().getColumn(3).setResizable(false);
+		table.getColumnModel().getColumn(3).setPreferredWidth(52);
+		scrollPane.setViewportView(table);
+		
+		String[] columnas = {"Cantidad", "Descripción", "Precio Unitario", "Total"};
+		DefaultTableModel modelo = new DefaultTableModel(null, columnas);
 		
 		JButton btnNuevo = new JButton("Nuevo");
 		btnNuevo.setFont(new Font("SansSerif", Font.BOLD, 15));
@@ -254,5 +270,53 @@ public class GUI extends JFrame {
 		btnFacturar.setBackground(SystemColor.activeCaption);
 		btnFacturar.setBounds(223, 530, 207, 23);
 		contentPane.add(btnFacturar);
+		
+		JLabel lblDescrp_1 = new JLabel("Descripción");
+		lblDescrp_1.setBounds(109, 234, 102, 39);
+		contentPane.add(lblDescrp_1);
+		lblDescrp_1.setFont(new Font("SansSerif", Font.BOLD, 15));
+		
+		JLabel lblCantidad_1 = new JLabel("Cantidad");
+		lblCantidad_1.setBounds(13, 235, 103, 37);
+		contentPane.add(lblCantidad_1);
+		lblCantidad_1.setFont(new Font("SansSerif", Font.BOLD, 15));
+		
+		JLabel lblPTotal = new JLabel("P. Total");
+		lblPTotal.setBounds(345, 234, 73, 39);
+		contentPane.add(lblPTotal);
+		lblPTotal.setFont(new Font("SansSerif", Font.BOLD, 15));
+		
+		JLabel lblPUnitario_1 = new JLabel("P. Unitario");
+		lblPUnitario_1.setBounds(245, 234, 102, 39);
+		contentPane.add(lblPUnitario_1);
+		lblPUnitario_1.setFont(new Font("SansSerif", Font.BOLD, 15));
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnAgregar) {
+			do_btnAgregar_actionPerformed(e);
+		}
+	}
+	
+	protected void do_btnAgregar_actionPerformed(ActionEvent e) {
+		String codigo = txtCodigo.getText();
+		String desc = txtDesc.getText();
+		double PUnit = Double.parseDouble(txtPUnitario.getText());
+		int cantidad = Integer.parseInt(txtCantidad.getText());
+		int stock = Integer.parseInt(txtStock.getText());
+		
+		Producto p = new Producto(cantidad, PUnit);
+		
+		double total = p.Total(cantidad, PUnit);
+		
+		DefaultTableModel modelo = (DefaultTableModel) table.getModel();
+        modelo.addRow(new Object[] {cantidad, desc, PUnit, total});
+
+        //Limpiar
+        txtCodigo.setText("");
+        txtDesc.setText("");
+        txtCantidad.setText("");
+        txtPUnitario.setText("");
+		
+		
 	}
 }

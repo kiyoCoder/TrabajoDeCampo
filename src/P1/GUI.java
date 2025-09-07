@@ -1,7 +1,6 @@
 package P1;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -18,10 +17,12 @@ import java.awt.SystemColor;
 import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import java.util.List;
 
-public class GUI extends JFrame implements ActionListener {
+public class GUI extends JFrame implements ActionListener, ItemListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -37,9 +38,10 @@ public class GUI extends JFrame implements ActionListener {
 	private JTextField txtIGV;
 	private JTextField txtTotal;
 	private JButton btnAgregar;
-	private JTextField txtDesc;
+	private JComboBox<Producto> cboProductos;
 	private JScrollPane scrollPane;
 	private JTable table;
+
 	/**
 	 * Launch the application.
 	 */
@@ -98,10 +100,10 @@ public class GUI extends JFrame implements ActionListener {
 		lblCdigo.setBounds(10, 11, 102, 39);
 		panel.add(lblCdigo);
 		
-		JLabel lblDescrp = new JLabel("Descripción:");
-		lblDescrp.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblDescrp.setBounds(10, 38, 102, 39);
-		panel.add(lblDescrp);
+		JLabel lblProducto = new JLabel("Producto:");
+		lblProducto.setFont(new Font("SansSerif", Font.BOLD, 15));
+		lblProducto.setBounds(10, 38, 102, 39);
+		panel.add(lblProducto);
 		
 		JLabel lblPUnitario = new JLabel("P. Unitario:");
 		lblPUnitario.setFont(new Font("SansSerif", Font.BOLD, 15));
@@ -114,9 +116,16 @@ public class GUI extends JFrame implements ActionListener {
 		panel.add(lblCantidad);
 		
 		txtCodigo = new JTextField();
+		txtCodigo.setEditable(false); // Solo lectura
 		txtCodigo.setBounds(140, 22, 147, 20);
 		panel.add(txtCodigo);
 		txtCodigo.setColumns(10);
+		
+		// ComboBox de productos
+		cboProductos = new JComboBox<>();
+		cboProductos.addItemListener(this);
+		cboProductos.setBounds(140, 50, 147, 20);
+		panel.add(cboProductos);
 		
 		JLabel lblStock = new JLabel("Stock:");
 		lblStock.setFont(new Font("SansSerif", Font.BOLD, 15));
@@ -124,11 +133,13 @@ public class GUI extends JFrame implements ActionListener {
 		panel.add(lblStock);
 		
 		txtStock = new JTextField();
+		txtStock.setEditable(false); // Solo lectura
 		txtStock.setColumns(10);
 		txtStock.setBounds(306, 49, 92, 20);
 		panel.add(txtStock);
 		
 		txtPUnitario = new JTextField();
+		txtPUnitario.setEditable(false); // Solo lectura
 		txtPUnitario.setColumns(10);
 		txtPUnitario.setBounds(140, 79, 147, 20);
 		panel.add(txtPUnitario);
@@ -144,11 +155,6 @@ public class GUI extends JFrame implements ActionListener {
 		btnAgregar.setBackground(SystemColor.activeCaption);
 		btnAgregar.setBounds(308, 99, 102, 22);
 		panel.add(btnAgregar);
-		
-		txtDesc = new JTextField();
-		txtDesc.setColumns(10);
-		txtDesc.setBounds(140, 50, 147, 20);
-		panel.add(txtDesc);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, SystemColor.activeCaption));
@@ -186,9 +192,6 @@ public class GUI extends JFrame implements ActionListener {
 		table.getColumnModel().getColumn(3).setResizable(false);
 		table.getColumnModel().getColumn(3).setPreferredWidth(52);
 		scrollPane.setViewportView(table);
-		
-		String[] columnas = {"Cantidad", "Descripción", "Precio Unitario", "Total"};
-		DefaultTableModel modelo = new DefaultTableModel(null, columnas);
 		
 		JButton btnNuevo = new JButton("Nuevo");
 		btnNuevo.setFont(new Font("SansSerif", Font.BOLD, 15));
@@ -290,7 +293,33 @@ public class GUI extends JFrame implements ActionListener {
 		lblPUnitario_1.setBounds(245, 234, 102, 39);
 		contentPane.add(lblPUnitario_1);
 		lblPUnitario_1.setFont(new Font("SansSerif", Font.BOLD, 15));
+		
+		// Cargar productos al inicializar
+		cargarProductos();
 	}
+	
+	// Método para cargar productos en el ComboBox
+	private void cargarProductos() {
+		cboProductos.removeAllItems();
+		List<Producto> productos = ConexionBD.obtenerProductos();
+		for (var p : productos) {
+			cboProductos.addItem(p);
+		}
+	}
+	
+	// Listener para el ComboBox (autocompletado)
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		if (e.getSource() == cboProductos && e.getStateChange() == ItemEvent.SELECTED) {
+			Producto productoSeleccionado = (Producto) cboProductos.getSelectedItem();
+			if (productoSeleccionado != null) {
+				txtCodigo.setText(productoSeleccionado.getCodigo());
+				txtPUnitario.setText(String.valueOf(productoSeleccionado.getpUnitario()));
+				txtStock.setText(String.valueOf(productoSeleccionado.getStock()));
+			}
+		}
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnAgregar) {
 			do_btnAgregar_actionPerformed(e);
@@ -298,25 +327,20 @@ public class GUI extends JFrame implements ActionListener {
 	}
 	
 	protected void do_btnAgregar_actionPerformed(ActionEvent e) {
+		// Tu código actual del botón agregar
 		String codigo = txtCodigo.getText();
-		String desc = txtDesc.getText();
+		String desc = cboProductos.getSelectedItem().toString();
 		double PUnit = Double.parseDouble(txtPUnitario.getText());
 		int cantidad = Integer.parseInt(txtCantidad.getText());
 		int stock = Integer.parseInt(txtStock.getText());
 		
 		Producto p = new Producto(cantidad, PUnit);
-		
 		double total = p.Total(cantidad, PUnit);
 		
 		DefaultTableModel modelo = (DefaultTableModel) table.getModel();
         modelo.addRow(new Object[] {cantidad, desc, PUnit, total});
-
-        //Limpiar
-        txtCodigo.setText("");
-        txtDesc.setText("");
+        // Limpiar campos
         txtCantidad.setText("");
-        txtPUnitario.setText("");
-		
-		
+        // Los demás campos se limpian cuando selecciones otro producto
 	}
 }

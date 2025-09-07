@@ -268,11 +268,11 @@ public class GUI extends JFrame implements ActionListener, ItemListener {
 		txtTotal.setBounds(317, 490, 113, 20);
 		contentPane.add(txtTotal);
 		
-		JButton btnFacturar = new JButton("FACTURAR");
-		btnFacturar.setFont(new Font("SansSerif", Font.BOLD, 15));
-		btnFacturar.setBackground(SystemColor.activeCaption);
-		btnFacturar.setBounds(223, 530, 207, 23);
-		contentPane.add(btnFacturar);
+		JButton btnVENTA = new JButton("Realizar Venta");
+		btnVENTA.setFont(new Font("SansSerif", Font.BOLD, 15));
+		btnVENTA.setBackground(SystemColor.activeCaption);
+		btnVENTA.setBounds(223, 530, 207, 23);
+		contentPane.add(btnVENTA);
 		
 		JLabel lblDescrp_1 = new JLabel("Descripción");
 		lblDescrp_1.setBounds(109, 234, 102, 39);

@@ -1,0 +1,7 @@
+INDEX VERSION 1.134+C:\Users\Admin\Desktop\universidad\trabajo universidad\.metadata\.plugins\org.eclipse.jdt.core
+2972433902.index
+2077571765.index
+2432842825.index
+1865797976.index
+258386410.index
+168302118.index

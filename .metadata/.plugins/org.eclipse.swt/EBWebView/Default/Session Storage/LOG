@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 2025/09/07-19:35:03.518 42cc Reusing MANIFEST C:\Users\Admin\Desktop\universidad\trabajo universidad\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Session Storage/MANIFEST-000001
 2025/09/07-19:35:03.519 42cc Recovering log #3
 2025/09/07-19:35:03.521 42cc Reusing old log C:\Users\Admin\Desktop\universidad\trabajo universidad\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Session Storage/000003.log 
+=======
+2025/09/06-22:06:37.966 4838 Reusing MANIFEST C:\Users\kamor\Desktop\TrabajoDeCampo\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Session Storage/MANIFEST-000001
+2025/09/06-22:06:37.967 4838 Recovering log #3
+2025/09/06-22:06:37.971 4838 Reusing old log C:\Users\kamor\Desktop\TrabajoDeCampo\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Session Storage/000003.log 
+>>>>>>> 9e9cb515efa7ad62d1ec193600895098cef945aa

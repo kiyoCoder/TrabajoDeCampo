@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 2025/09/07-18:15:52.393 1fd4 Reusing MANIFEST C:\Users\Admin\Desktop\universidad\trabajo universidad\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/MANIFEST-000001
 2025/09/07-18:15:52.394 1fd4 Recovering log #3
 2025/09/07-18:15:52.394 1fd4 Reusing old log C:\Users\Admin\Desktop\universidad\trabajo universidad\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/000003.log 
+=======
+2025/09/06-21:59:18.198 17c0 Reusing MANIFEST C:\Users\kamor\Desktop\TrabajoDeCampo\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/MANIFEST-000001
+2025/09/06-21:59:18.199 17c0 Recovering log #3
+2025/09/06-21:59:18.200 17c0 Reusing old log C:\Users\kamor\Desktop\TrabajoDeCampo\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Site Characteristics Database/000003.log 
+>>>>>>> 9e9cb515efa7ad62d1ec193600895098cef945aa

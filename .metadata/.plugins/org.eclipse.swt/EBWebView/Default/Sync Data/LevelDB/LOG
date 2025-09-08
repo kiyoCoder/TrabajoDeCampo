@@ -1,3 +1,9 @@
+<<<<<<< HEAD
 2025/09/07-19:35:03.410 988 Reusing MANIFEST C:\Users\Admin\Desktop\universidad\trabajo universidad\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Sync Data\LevelDB/MANIFEST-000001
 2025/09/07-19:35:03.411 988 Recovering log #3
 2025/09/07-19:35:03.411 988 Reusing old log C:\Users\Admin\Desktop\universidad\trabajo universidad\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Sync Data\LevelDB/000003.log 
+=======
+2025/09/06-22:06:37.841 2430 Reusing MANIFEST C:\Users\kamor\Desktop\TrabajoDeCampo\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Sync Data\LevelDB/MANIFEST-000001
+2025/09/06-22:06:37.843 2430 Recovering log #3
+2025/09/06-22:06:37.843 2430 Reusing old log C:\Users\kamor\Desktop\TrabajoDeCampo\.metadata\.plugins\org.eclipse.swt\EBWebView\Default\Sync Data\LevelDB/000003.log 
+>>>>>>> 9e9cb515efa7ad62d1ec193600895098cef945aa
